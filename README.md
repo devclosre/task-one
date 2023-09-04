@@ -93,25 +93,26 @@
 
     # Task3: Using Ansible update the Home page of the Nginx server from "Hello World" to "Hello World from Ansible"
     1. In the Task, by using terraform we have created another server which acts as a Ansible Control Machine.
-       ![image](https://github.com/devclosre/task1/assets/143948725/fe3697c7-6ff5-4358-80d1-b1d83c85d468)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/bf1b6ba1-6194-4a0f-84ed-a4346241285e)
 
     2. We are considering Nginx server in ASG as Node machine to Ansible Control Machine.
        We need to setup Passwordless Authentication between Ansible server and Nginx server, but by default AWS does not support
        Password Authentication, so we have to enable it on both the machine.
     3. First create a user called "devops", set a password and give him sudo permissions by going into visudo.
-       ![image](https://github.com/devclosre/task1/assets/143948725/20d4693a-e350-48c9-9050-74c8a66c4cca)
-       ![image](https://github.com/devclosre/task1/assets/143948725/10b7cc30-2480-41a5-9ff6-5b3c7918be58)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/e724ab9f-f2e0-41e4-b791-ca0fa23eef1e)
+
 
     4. Next step would be enable Password Authentication and PubkeyAuthentication from "/etc/ssh/sshd_config" 
-       ![image](https://github.com/devclosre/task1/assets/143948725/ae5325b2-c3f2-430d-bd48-1d12cd1e5c44)
-       ![image](https://github.com/devclosre/task1/assets/143948725/b88bc63c-91f1-48bc-9431-81f847b9779d)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/33e622c1-4a97-4357-b494-96d597165148)
+   
+       ![image](https://github.com/devclosre/task-one/assets/143948725/4fb72426-b88c-4627-a6d6-479a712ec8e4)
 
        Once the changes are done reload sshd service.
+       ![image](https://github.com/devclosre/task-one/assets/143948725/fb1d993e-2621-4e19-a25c-3e78eb548d0f)
 
-       ![image](https://github.com/devclosre/task1/assets/143948725/ea9686a6-4207-4011-a282-d581024150f0)
 
     6. Now create a key pair using "ssh-keygen" and the keys will be store in "~/.ssh/id_rsa and id_rsa.pub"
-       ![image](https://github.com/devclosre/task1/assets/143948725/30410dbc-1dbc-4900-b610-234528de3e90)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/67fb2614-3d47-45a4-a714-b110720ffe39)
 
        
 
@@ -120,22 +121,26 @@
        is set between the Ansible Control Machine and Nginx server.
 
     8. Now we can see the Nginx server is still serving "Hello World"
-       ![image](https://github.com/devclosre/task1/assets/143948725/d8d776d1-57b6-47d3-be01-bb7a502b4255)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/748d7c04-875c-42ab-958e-af39adee7cfc)
+
 
     9. For testing the connection between both the machine, we do a basic ping using adhoc command:
-       ![image](https://github.com/devclosre/task1/assets/143948725/127f4b32-a625-48cd-b4b3-38433aed4feb)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/e39071d8-ccd4-4810-bef2-8a68f393643c)
 
     10. Now with update_nginx.yml and index.html, we will use the following command to update the Nginx server from "Hello World" to
         "Hello World to Ansible"
         
-       ![image](https://github.com/devclosre/task1/assets/143948725/4cac7200-7e9c-441d-832d-bb4bd0319483)
+       ![image](https://github.com/devclosre/task-one/assets/143948725/b1e18045-e3fb-4ae1-97d6-9516807ade96)
 
-       ![image](https://github.com/devclosre/task1/assets/143948725/96209de6-8ff9-4786-9363-99601a8d1daf)
+
+       ![image](https://github.com/devclosre/task-one/assets/143948725/85cde8c1-ca60-4db1-9cc6-e819e0dfd59d)
+
 
     11. Upon successful execution of the playbook we can now see "Hello World from Ansible" as the Nginx server is reloaded using hanlders task,
         which gets notified by some copy task.
         
-        ![image](https://github.com/devclosre/task1/assets/143948725/af6999a9-097b-467a-9651-326aaabbf7ca)
+        ![image](https://github.com/devclosre/task-one/assets/143948725/17a7b652-e621-4242-b327-54023986707f)
+
 
 
 
