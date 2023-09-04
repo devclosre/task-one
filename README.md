@@ -1,47 +1,73 @@
 # Task1: Create a VPC with Nginx as Webserver using Lauch Configuration, and in Auto Scaling Group
 1. Created a VPC: Ntier-VPC with three public and private subnets in ap-southeast-4
-   ![image](https://github.com/devclosre/task1/assets/143948725/a3b4e90f-8244-4526-b495-10ba17e1d5f2)
-2. All the three public subnets are connected to Public Route Table: Ntier-Public-rt
-   ![image](https://github.com/devclosre/task1/assets/143948725/6f5eaf18-2dd8-4853-902b-d28c902f4ed5)
-3. The Ntier-Public-rt has a route to the Ntier-IGW, which makes it truly public subnet not just the name
-4. The Route table has three subnet association, ie all three Public Subnets
-   ![image](https://github.com/devclosre/task1/assets/143948725/c616960f-2928-4f2e-85ef-9f14a3e54b55)
-5.  Ntier-IGW is attached to Ntier-VPC
-    ![image](https://github.com/devclosre/task1/assets/143948725/ebaf9d41-5900-4771-be2d-3ad16df2a8dd)
-6. Now we need a SG to allow inboud and outbound traffic to the Instance in the ASG.
-7. We have opened port 22 for SSH, 80 for HTTP traffic and 443 for HTTPS traffic
-   ![image](https://github.com/devclosre/task1/assets/143948725/7f1c8ed3-8270-4c7e-9278-e1a16a0f07b4)
-   ![image](https://github.com/devclosre/task1/assets/143948725/9b361605-7a4b-4ed5-98ac-1826ff06bbec)
-9. Our Nginx server is in ASG and this Nginx Server is created using userdata in Launch Configuration.
-   
-    ![image](https://github.com/devclosre/task1/assets/143948725/fa4bf29f-c6f3-48aa-bc6c-4ca846494f70)
-   ![image](https://github.com/devclosre/task1/assets/143948725/15c00c92-817e-48b7-8813-6f98cf02f708)
-10. We can see that the Nginx server is deployed inside Public Subnet-1 of Ntier VPC and there is a public ip assigned to it.
-11. We are able to access the Nginx server that serves "Hello World" as it main page, which is created using
-    Launch configuration and in Auto Scaling Group.
-    
-    ![image](https://github.com/devclosre/task1/assets/143948725/ca55a6a5-f0a4-41cd-91e1-0c21eae5dc8b)
-12. To test whether Auto Scaling Feature is working or not, we have manually terminated the Instance.
-    ![image](https://github.com/devclosre/task1/assets/143948725/935c30e4-023b-47f8-bef9-e4f765f48c6e)
-13. ASG will look for min number of instance given in the configuration and creates a new Instance or Instances
-    accordingly.So it created a Nginx Instance in the one of the three public subnets.
-    
-    ![image](https://github.com/devclosre/task1/assets/143948725/9dd651f9-1cf2-4b00-ab1c-2ce04ef0c0cd)
-15. We can see the new machine is launched in ap-southeast-4a and through its public ip we can access
-    the "Hello World" page again when we enter the ip in the browser.
-    ![image](https://github.com/devclosre/task1/assets/143948725/b9e23913-82ad-4bcc-ab65-15c606e13912)
-16. So whenever there is a termination of Instance or new instance created and so on, a notification
-    will be send to email via SNS notification service.
-    ![image](https://github.com/devclosre/task1/assets/143948725/13bf9ea5-e60a-4943-a0c0-23ed0070245f)
+   ![image](https://github.com/devclosre/task-one/assets/143948725/eef82c1e-9161-4986-823f-a6e16a076ee9)
 
-    ![image](https://github.com/devclosre/task1/assets/143948725/815deba7-d5b4-4dc3-a475-601fcc4b2156)
-18. Subscriber needs to confirm the subscription to receive the email notification.
-    ![image](https://github.com/devclosre/task1/assets/143948725/bf46b72c-8154-4ab9-aaed-046957709771)
-19. Cost-Optimisation is achieved via cutting down on the number of running servers during non-business hours.
-    ![image](https://github.com/devclosre/task1/assets/143948725/6b46afcc-2ab4-4157-ab6b-4d7caffb7cd4)
+2. All the three public subnets are connected to Public Route Table: Ntier-Public-rt
+  ![image](https://github.com/devclosre/task-one/assets/143948725/b7c94c79-8762-4134-8c81-189edb693c2c)
+
+3. The Ntier-Public-rt has a route to the Ntier-IGW, which makes it truly public subnet not just the name
+   ![image](https://github.com/devclosre/task-one/assets/143948725/054cdc0f-96be-4803-9b29-2a29fe928dbf)
+
+5. The Route table has three subnet association, ie all three Public Subnets
+   ![image](https://github.com/devclosre/task-one/assets/143948725/19028b42-8960-408c-bf1b-775b28076451)
+
+6.  Ntier-IGW is attached to Ntier-VPC
+    ![image](https://github.com/devclosre/task-one/assets/143948725/3925f9d1-4003-40e4-85d7-c7007d65fa7c)
+
+7. Now we need a SG to allow inboud and outbound traffic to the Instance in the ASG.
+8. We have opened port 22 for SSH, 80 for HTTP traffic and 443 for HTTPS traffic.
+   ![image](https://github.com/devclosre/task-one/assets/143948725/a2a3d6a2-e260-4ad9-93bb-290db631ff20)
+   
+   ![image](https://github.com/devclosre/task-one/assets/143948725/8ae7f047-d09d-4c9b-b443-8722ec6b6a0c)
+   
+9. Our Nginx server is in ASG and this Nginx Server is created using userdata in Launch Configuration.
+   ![image](https://github.com/devclosre/task-one/assets/143948725/b4b5723f-ee4e-4122-9c75-e91bf9468a58)
+
+   ![image](https://github.com/devclosre/task-one/assets/143948725/765fb9f1-bc2b-4679-a5a3-7cd969f3751c)
+
+
+   
+   
+11. We can see that the Nginx server is deployed inside Public Subnet-1 of Ntier VPC and there is a public ip assigned to it.
+   ![image](https://github.com/devclosre/task-one/assets/143948725/cd87493a-8131-44f1-be72-a784c6611828)
+
     
-20. Terraform configuration files used for Task1:
-    ![image](https://github.com/devclosre/task1/assets/143948725/55cbdc9e-001e-4a7f-a28d-08b32f31495b)
+13. We are able to access the Nginx server that serves "Hello World" as it main page, which is created using
+    Launch configuration and in Auto Scaling Group.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/2d11064a-9cbc-4379-b45e-fdb970cad6ab)
+
+    
+14. To test whether Auto Scaling Feature is working or not, we have manually terminated the Instance.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/1e4402c3-e2f6-428b-8f48-98b73782fc11)
+
+    
+15. ASG will look for min number of instance given in the configuration and creates a new Instance or Instances
+    accordingly.So it created a Nginx Instance in the one of the three public subnets.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/1a9176ef-9ee5-4961-84f8-f1cbeb6367d6)
+
+    
+16. We can see the new machine is launched in ap-southeast-4a and through its public ip we can access
+    the "Hello World" page again when we enter the ip in the browser.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/6630988b-b5d3-4dad-907f-75290c56a89f)
+
+    
+17. So whenever there is a termination of Instance or new instance created and so on, a notification
+    will be send to email via SNS notification service.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/92fbe633-6c38-408d-87dc-a52c349a1023)
+
+    
+    
+18. Subscriber needs to confirm the subscription to receive the email notification.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/bdd85c3d-e7be-46a0-8265-38954d1d1bf5)
+
+    
+20. Cost-Optimisation is achieved via cutting down on the number of running servers during non-business hours.
+    ![image](https://github.com/devclosre/task-one/assets/143948725/f239f51e-1448-4e52-bc59-a5400bec613f)
+
+    
+21. Terraform configuration files used for Task1:
+    ![image](https://github.com/devclosre/task-one/assets/143948725/31c9e1ca-4d57-4453-a8af-c04f52287c6d)
+
     
 22. # Terraform workflow:
       Terraform workflow starts with creating the configuration files, then:
@@ -54,11 +80,13 @@
     
       terraform apply --> Provision reproducible infrastructure.
     
-    ![image](https://github.com/devclosre/task1/assets/143948725/0142f08e-b402-4033-bab0-bdfc24eef03b)
+      ![image](https://github.com/devclosre/task-one/assets/143948725/71aab6f9-571c-4c1d-bb3e-7868fdcdfe5f)
+
     
       terraform destroy --> Destroy the provisioned infrastructure.
     
-    ![image](https://github.com/devclosre/task1/assets/143948725/2fba2420-5835-4e11-8646-0bdef5499ae0)
+     ![image](https://github.com/devclosre/task-one/assets/143948725/117583b4-75ce-47dd-8cfa-4f9242181cc4)
+
 
 
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
