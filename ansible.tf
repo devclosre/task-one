@@ -6,7 +6,7 @@ resource "aws_instance" "ansible_master" {
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnets[0].id
   vpc_security_group_ids      = [aws_security_group.web-sg.id]
-  user_data                   = file("./install_ansible.sh")
+  user_data                   = base64encode(file("./install_ansible.sh"))
 
   tags = {
     Name = "ansible_master"

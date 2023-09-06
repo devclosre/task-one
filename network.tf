@@ -49,7 +49,7 @@ resource "aws_route_table" "public_route_table" {
 
   # Define route entries
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = local.any_where
     gateway_id = aws_internet_gateway.ntier_igw.id
   }
   tags = {
@@ -70,34 +70,27 @@ resource "aws_route_table_association" "subnet_association" {
 resource "aws_security_group" "web-sg" {
   name   = "web-sg"
   vpc_id = aws_vpc.ntier.id
-  ingress {
-    description = "Allow Port 22"
-    from_port   = local.ssh_port
-    to_port     = local.ssh_port
-    protocol    = local.tcp
-    cidr_blocks = [local.any_where]
+
+  dynamic ingress {
+    for_each    = local.inbound_ports
+    iterator    = port
+    content {
+        from_port   = port.value  
+        to_port     = port.value
+        protocol    = local.tcp
+        cidr_blocks = [local.any_where]
+    }
   }
-  ingress {
-    description = "Allow Port 80"
-    from_port   = local.http_port
-    to_port     = local.http_port
-    protocol    = local.tcp
-    cidr_blocks = [local.any_where]
-  }
-  ingress {
-    description = "Allow Port 443"
-    from_port   = local.https_port
-    to_port     = local.https_port
-    protocol    = local.tcp
-    cidr_blocks = [local.any_where]
-  }
-  egress {
-    description = "Allow all ip and ports outbound"
-    from_port   = local.all_ports
-    to_port     = local.all_ports
-    protocol    = local.any_protocol
-    cidr_blocks = [local.any_where]
-  }
+    
+   dynamic egress {
+    for_each    = local.outbound_ports
+    content {
+      from_port   = egress.value
+      to_port     = egress.value
+      protocol    = local.tcp
+      cidr_blocks = [local.any_where]
+    }  
+}
 
   tags = {
     Name = "web-sg"

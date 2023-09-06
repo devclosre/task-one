@@ -14,9 +14,3 @@ sudo apt install -y ansible
 
 # Verify the installation
 ansible --version
-
-
-
-
-
-
