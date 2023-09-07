@@ -1,6 +1,6 @@
 ### Using Template file
 data "template_file" "ansible_userdata" {
-  template = file("./ansible_install.sh")
+  template = file("ansible_install.sh")
 }
 
 ### Install Ansible Server

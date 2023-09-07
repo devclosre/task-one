@@ -1,6 +1,6 @@
 ### Using Template file
 data "template_file" "nginx_userdata" {
-  template = file("./nginx_install.sh")
+  template = file("nginx_install.sh")
 }
 
 ### Launch Configuration for ASG
