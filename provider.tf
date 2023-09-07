@@ -9,6 +9,7 @@ terraform {
       source  = "hashicorp/random"
       version = "~> 3.0"
     }
+    
   }
 }
 
@@ -16,6 +17,7 @@ terraform {
 provider "aws" {
   region = var.target_region
 }
+
 
 ### Create Random Pet Resource
 resource "random_pet" "mypet" {

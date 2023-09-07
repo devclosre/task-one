@@ -1,3 +1,8 @@
+### Using Template file
+data "template_file" "nginx_userdata" {
+  template = file("./nginx_install.sh")
+}
+
 ### Launch Configuration for ASG
 resource "aws_launch_configuration" "web-instance-lc" {
   name_prefix     = "web-instance-lc"
@@ -5,16 +10,8 @@ resource "aws_launch_configuration" "web-instance-lc" {
   instance_type   = "t3.micro"
   key_name        = var.instance_keypair
   security_groups = [aws_security_group.web-sg.id]
-  user_data       = <<-EOF
-              #!/bin/bash
-              sudo apt update
-              sudo apt install -y nginx
-              sudo systemctl start nginx
-              sudo systemctl enable nginx
-              echo "Hello World" > /var/www/html/index.html
-              sudo systemctl start nginx
-              sudo systemctl enable nginx
-              EOF
+  user_data       = data.template_file.nginx_userdata.rendered
+
 }
 
 ### Auto Scaling Group
@@ -28,9 +25,7 @@ resource "aws_autoscaling_group" "web-asg" {
   desired_capacity     = 1
   #vpc_zone_identifier = aws_subnet.public_subnets[*].id
   vpc_zone_identifier = [
-    aws_subnet.public_subnets[0].id, # ap-southeast-2a
-    aws_subnet.public_subnets[1].id, # ap-southeast-2b
-    aws_subnet.public_subnets[2].id, # ap-southeast-2c
+    for index, subnet in aws_subnet.public_subnets : subnet.id
   ]
 
 
@@ -44,3 +39,4 @@ resource "aws_autoscaling_group" "web-asg" {
     create_before_destroy = true
   }
 }
+

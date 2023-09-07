@@ -71,26 +71,26 @@ resource "aws_security_group" "web-sg" {
   name   = "web-sg"
   vpc_id = aws_vpc.ntier.id
 
-  dynamic ingress {
-    for_each    = local.inbound_ports
-    iterator    = port
+  dynamic "ingress" {
+    for_each = local.inbound_ports
+    iterator = port
     content {
-        from_port   = port.value  
-        to_port     = port.value
-        protocol    = local.tcp
-        cidr_blocks = [local.any_where]
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = local.tcp
+      cidr_blocks = [local.any_where]
     }
   }
-    
-   dynamic egress {
-    for_each    = local.outbound_ports
+
+  dynamic "egress" {
+    for_each = local.outbound_ports
     content {
       from_port   = egress.value
       to_port     = egress.value
       protocol    = local.tcp
       cidr_blocks = [local.any_where]
-    }  
-}
+    }
+  }
 
   tags = {
     Name = "web-sg"
